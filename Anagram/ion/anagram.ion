@@ -1,0 +1,26 @@
+fn count_changes_to_anagram(str1: string, str2: string): int {
+    let char_count = [: int]()
+
+    for char in str1 {
+        char_count[char] = default(char_count[char], 0) + 1
+    }
+
+    for char in str2 {
+        char_count[char] = default(char_count[char], 0) - 1
+    }
+
+    let changes_needed = 0
+    for val in char_count.values() {
+        changes_needed += abs(val)
+    }
+
+    return changes_needed / 2
+}
+
+fn main() {
+    let str1 = readLine()
+    let str2 = readLine()
+
+    let result = count_changes_to_anagram(str1, str2)
+    print(result)
+}

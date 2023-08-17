@@ -1,0 +1,28 @@
+
+// Leer la entrada
+var inputs = readStdin().split("\n");
+var h, w = inputs[0].split(" ").map(Std.parseInt);
+var grid = [];
+for (i in 1 to h) {
+    grid[i - 1] = inputs[i].split(" ").map(Std.parseInt);
+}
+
+// Calcular el área de la superficie expuesta
+var surfaceArea = 2 * h * w; // Áreas superiores e inferiores
+
+for (i in 0 to h - 1) {
+    for (j in 0 to w - 1) {
+        // Restar el área cubierta por los bloques adyacentes
+        surfaceArea += 4 * grid[i][j] + 2;
+
+        if (i > 0) {
+            surfaceArea -= 2 * Math.min(grid[i][j], grid[i - 1][j]);
+        }
+        if (j > 0) {
+            surfaceArea -= 2 * Math.min(grid[i][j], grid[i][j - 1]);
+        }
+    }
+}
+
+// Imprimir el área total de la superficie expuesta
+Sys.println(surfaceArea);
