@@ -18,7 +18,7 @@ implement main0 () = {
     
     var maxSum = -999999 // Valor mínimo posible
     
-    // Recorrer la matriz para calcular la suma máxima de la hora de vidrio
+    // Recorrer la matriz para calcular la suma máxima del hourglass
     for i in 0 to numRows - 3 do
         for j in 0 to numCols - 3 do
             val currentSum = matrix[i][j] + matrix[i][j+1] + matrix[i][j+2]
@@ -30,6 +30,6 @@ implement main0 () = {
         end
     end
     
-    // Imprimir la suma máxima de la hora de vidrio
+    // Imprimir la suma máxima del hourglass
     println!("Maximum hourglass sum: ", maxSum)
 }
