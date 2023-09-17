@@ -1,0 +1,65 @@
+// Given two dates each in the format dd-mm-yyyy, you have to find the number of lucky dates between them (inclusive). To see if a date is lucky,
+
+// Firstly, sequentially concatinate the date, month and year, into a new integer x erasing the leading zeroes.
+// Now if x is divisible by either 4 or 7, then we call the date a lucky date.
+
+// Debug the given function findPrimeDates and/or other lines of code, to find the correct lucky dates from the given input.
+
+// The only line of the input contains two strings u and v denoting the two dates following the format dd-mm-yyyy. Consider, d is the day number, m is the month number and y is the year number.
+
+// Note: Here m=01 means January, m=02 means February, m=03 means March and so on and all the dates follow the standard structure of English calender including the leap year.
+
+// For each test cases, print a single integer the number of lucky dates between  and  in a single line.
+
+// 1 <= d1,d2 <=31
+// 1 <= m1,m2 <=12
+// 1 000<= y1<=y2 <=9999
+
+const fs = require('fs');
+
+function processData(input) {
+    const [u, v] = input.trim().split(" ");
+    const [d1, m1, y1] = u.split("-").map(Number);
+    const [d2, m2, y2] = v.split("-").map(Number);
+
+    let luckyDates = 0;
+
+    for (let year = y1; year <= y2; year++) {
+        let startMonth = year === y1 ? m1 : 1;
+        let endMonth = year === y2 ? m2 : 12;
+
+        for (let month = startMonth; month <= endMonth; month++) {
+            let startDate = year === y1 && month === m1 ? d1 : 1;
+            let endDate = year === y2 && month === m2 ? d2 : getDaysInMonth(month, year);
+
+            for (let date = startDate; date <= endDate; date++) {
+                const number = parseInt(`${date}${month}${year}`, 10);
+                if (number % 4 === 0 || number % 7 === 0) {
+                    luckyDates++;
+                }
+            }
+        }
+    }
+
+    return luckyDates;
+}
+
+function getDaysInMonth(month, year) {
+    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    if (month === 2 && isLeapYear(year)) {
+        return 29;
+    }
+    return daysInMonth[month - 1];
+}
+
+function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+}
+
+function main() {
+    const input = fs.readFileSync('inputcode08.txt', 'utf8');
+    const result = processData(input);
+    fs.writeFileSync('outputcode08.txt', result.toString());
+}
+
+main();

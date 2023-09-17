@@ -1,0 +1,63 @@
+// His challenge is to find an element of the array such that the sum of all elements to the left is equal to the sum of all elements to the right. You will be given arrays of integers and must determine whether there is an element that meets the criterion. If there is, return YES. Otherwise, return NO.
+
+// The first line contains T, the number of test cases.
+
+// The next T pairs of lines each represent a test case.
+// - The first line contains n, the number of elements in the array arr.
+// - The second line contains n space-separated integers arr[i] where 0<=i<n.
+
+'use strict';
+
+const fs = require('fs');
+const inputString = fs.readFileSync('./inputcode09.txt', 'utf8').split('\n');
+let currentLine = 0;
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+/*
+ * Complete the 'balancedSums' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts INTEGER_ARRAY arr as parameter.
+ */
+
+function balancedSums(arr) {
+    // Write your code here
+    let leftSum = 0;
+    let rightSum = arr.reduce((sum, num) => sum + num, 0);
+
+    for (let i = 0; i < arr.length; i++) {
+        rightSum -= arr[i];
+
+        if (leftSum === rightSum) {
+            return "YES";
+        }
+
+        leftSum += arr[i];
+    }
+
+    return "NO";
+
+}
+
+function main() {
+    const ws = fs.createWriteStream('./outputcode09.txt');
+
+    const T = parseInt(readLine().trim(), 10);
+
+    for (let TItr = 0; TItr < T; TItr++) {
+        const n = parseInt(readLine().trim(), 10);
+
+        const arr = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+
+        const result = balancedSums(arr);
+
+        ws.write(result + '\n');
+    }
+
+    ws.end();
+}
+
+main();

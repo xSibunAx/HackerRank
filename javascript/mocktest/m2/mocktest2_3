@@ -1,0 +1,70 @@
+const fs = require('fs');
+
+function anagram(s) {
+    if (s.length % 2 !== 0) {
+        return -1; // La longitud de la cadena no es par, no se puede dividir en dos substrings de igual longitud
+    }
+
+    const mid = s.length / 2;
+    const firstHalf = s.slice(0, mid);
+    const secondHalf = s.slice(mid);
+
+    const charCount = {};
+
+    // Contar la frecuencia de cada caracter en la primera mitad de la cadena
+    for (let char of firstHalf) {
+        charCount[char] = charCount[char] ? charCount[char] + 1 : 1;
+    }
+
+    let count = 0;
+
+    // Verificar la cantidad de caracteres en la segunda mitad de la cadena que no están presentes o tienen una frecuencia menor en la primera mitad
+    for (let char of secondHalf) {
+        if (!charCount[char] || charCount[char] === 0) {
+            count++;
+        } else {
+            charCount[char]--;
+        }
+    }
+
+    return count;
+}
+
+function processData(input) {
+    const inputArray = input.split('\n');
+    const q = parseInt(inputArray[0].trim(), 10);
+    const strings = inputArray.slice(1, q + 1);
+
+    const results = [];
+
+    for (let s of strings) {
+        const result = anagram(s);
+        results.push(result);
+    }
+
+    return results.join('\n');
+}
+
+const inputFile = 'inputcode3.txt';
+const outputFile = 'outputcode3.txt';
+
+fs.readFile(inputFile, 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    const input = data.trim();
+    const output = processData(input);
+
+    fs.writeFile(outputFile, output, 'utf8', (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('Output has been written to outputcode3.txt');
+    });
+});
+
+
+//pendiente

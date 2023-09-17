@@ -1,0 +1,27 @@
+'use strict';
+
+const fs = require('fs');
+
+const inputFilePath = 'inputcode7.txt'; // Reemplaza con la ruta correcta de tu archivo
+
+const fileContents = fs.readFileSync(inputFilePath, 'utf-8');
+const inputLines = fileContents.trim().split('\n');
+
+function readLine() {
+    return inputLines.shift();
+}
+
+
+
+function main() {
+    const n = parseInt(readLine().trim(), 10);
+
+    const arr = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+
+    const reverseOrder = arr.reverse();;
+
+    console.log(reverseOrder.join(' '));
+
+}
+
+main();

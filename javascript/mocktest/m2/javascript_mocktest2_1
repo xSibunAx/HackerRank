@@ -1,0 +1,62 @@
+const fs = require('fs');
+
+function palindromeIndex(s) {
+    let left = 0;
+    let right = s.length - 1;
+
+    while (left < right) {
+        if (s[left] !== s[right]) {
+            // Eliminar el carácter en el índice right
+            if (isPalindrome(s, left, right - 1)) {
+                return right;
+            }
+            // Eliminar el carácter en el índice left
+            if (isPalindrome(s, left + 1, right)) {
+                return left;
+            }
+            // No se puede formar un palíndromo eliminando un solo carácter
+            return -1;
+        }
+        left++;
+        right--;
+    }
+
+    // La cadena ya es un palíndromo
+    return -1;
+}
+
+function isPalindrome(s, left, right) {
+    while (left < right) {
+        if (s[left] !== s[right]) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true;
+}
+
+function processData(input) {
+    const inputArray = input.split('\n');
+    const q = parseInt(inputArray[0].trim(), 10);
+
+    const results = [];
+
+    for (let i = 1; i <= q; i++) {
+        const s = inputArray[i];
+        const result = palindromeIndex(s);
+        results.push(result);
+    }
+
+    return results.join('\n');
+}
+
+const inputFile = 'inputcode1.txt';
+const outputFile = 'outputcode1.txt';
+
+const input = fs.readFileSync(inputFile, 'utf8');
+const output = processData(input);
+
+fs.writeFileSync(outputFile, output);
+
+//pendiente

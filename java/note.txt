@@ -1,0 +1,7 @@
+java8
+usar en comand promt:
+
+set PATH="C:\Program Files\Java\jdk-20\bin";%PATH%
+
+java --version 
+javac --version

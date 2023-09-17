@@ -1,0 +1,34 @@
+// Read a string, s, and print its integer value; if s cannot be converted to an integer, print Bad String.
+
+// Note: You must use the String-to-Integer and exception handling constructs built into your submission language. If you attempt to use loops/conditional statements, you will get a 0 score.
+
+// solo completar el main sin loops or condicionales. 
+
+// Usar exception handling concepts
+
+const fs = require('fs');
+
+const inputFilePath = 'inputcode16.txt';
+const outputFilePath = 'outputcode16.txt';
+
+const input = fs.readFileSync(inputFilePath, 'utf-8').trim();
+const lines = input.split('\n');
+let currentLine = 0;
+
+function readLine() {
+    return lines[currentLine++];
+}
+
+function main() {
+    const S = readLine();
+
+    try {
+        const integer = parseInt(S, 10);
+        const result = Number.isNaN(integer) ? 'Bad String' : integer.toString();
+        fs.writeFileSync(outputFilePath, result + '\n', { flag: 'a' });
+    } catch (error) {
+        fs.writeFileSync(outputFilePath, 'Bad String\n', { flag: 'a' });
+    }
+}
+
+main();

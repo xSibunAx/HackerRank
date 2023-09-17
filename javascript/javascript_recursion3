@@ -1,0 +1,44 @@
+'use strict';
+
+const fs = require('fs');
+const inputString = fs.readFileSync('inputcode9.txt', 'utf8').split('\n');
+let currentLine = 0;
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+/*
+ * Complete the 'factorial' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts INTEGER n as parameter.
+ */
+
+function factorial(n) {
+    // Write your code here
+    if (n === 0 || n === 1) {
+        // Caso base: factorial de 0 y 1 es 1
+        return 1;
+    } else {
+        // Caso recursivo: factorial de n es n multiplicado por el factorial de n-1
+        return n * factorial(n - 1);
+    }
+
+}
+
+function main() {
+    //const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const ws = fs.createWriteStream('outputcode9.txt');
+
+    const n = parseInt(readLine().trim(), 10);
+
+    const result = factorial(n);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
+
+main();

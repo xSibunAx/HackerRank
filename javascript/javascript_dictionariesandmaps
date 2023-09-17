@@ -1,0 +1,37 @@
+'use strict';
+
+function processData(input) {
+    const phoneBook = new Map();
+
+    const lines = input.trim().split('\n');
+    const n = parseInt(lines[0]);
+
+    // Construir el directorio telefónico
+    for (let i = 1; i <= n; i++) {
+        const [name, phoneNumber] = lines[i].split(' ');
+        phoneBook.set(name, phoneNumber);
+    }
+
+    // Realizar las consultas
+    for (let i = n + 1; i < lines.length; i++) {
+        const query = lines[i].trim();
+        if (phoneBook.has(query)) {
+            console.log(`${query} = ${phoneBook.get(query)}`);
+        } else {
+            console.log('Not found');
+            //console.log(`${query} = Not Found`);
+        }
+    }
+}
+
+const input = `4
+laura 3172141441
+sam 99912222
+tom 11122222
+harry 12299933
+sam
+edward
+harry
+laura`;
+
+processData(input);

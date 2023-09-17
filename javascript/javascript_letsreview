@@ -1,0 +1,72 @@
+function processData(input) {
+    const lines = input.trim().split("\n"); //
+    const T = parseInt(lines[0]); //
+  
+    for (let i = 0; i < T; i++) {
+      const str = lines[i + 1];
+      let evenChars = "";
+      let oddChars = "";
+  
+      for (let j = 0; j < str.length; j++) {
+        if (j % 2 === 0) {
+          evenChars += str[j];
+        } else {
+          oddChars += str[j];
+        }
+      }
+  
+      console.log(evenChars + " " + oddChars);
+    }
+  }
+  
+  const input = "2\nHacker\nRank";
+  processData(input);
+
+  process.stdin.resume();
+  process.stdin.setEncoding("ascii");
+    
+  process.stdin.on("data", function (chunk) {
+    input += chunk;
+  });
+  
+  process.stdin.on("end", function () {
+    processData(input);
+  });
+
+// with input and output file
+
+//   const fs = require('fs');
+
+// function processData(input) {
+//   const lines = input.trim().split("\n");
+//   const T = parseInt(lines[0]);
+
+//   let output = "";
+
+//   for (let i = 0; i < T; i++) {
+//     const str = lines[i + 1];
+//     let evenChars = "";
+//     let oddChars = "";
+
+//     for (let j = 0; j < str.length; j++) {
+//       if (j % 2 === 0) {
+//         evenChars += str[j];
+//       } else {
+//         oddChars += str[j];
+//       }
+//     }
+
+//     output += evenChars + " " + oddChars + "\n";
+//   }
+
+//   return output;
+// }
+
+// // Leer el archivo de entrada
+// const input = fs.readFileSync('input.txt', 'utf-8');
+
+// // Procesar los datos
+// const result = processData(input);
+
+// // Escribir el resultado en el archivo de salida
+// fs.writeFileSync('output.txt', result, 'utf-8');

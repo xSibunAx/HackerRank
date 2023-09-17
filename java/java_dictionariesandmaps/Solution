@@ -1,0 +1,39 @@
+//Complete this code or write your own from scratch
+import java.util.*;
+
+class Solution{
+    public static void main(String []argh){
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        
+        Map<String, Long> phoneBook = new HashMap<>();
+        
+        for(int i = 0; i < n; i++){
+            String name = in.next();
+            long phone = in.nextLong();
+            // Write code here
+            phoneBook.put(name, phone);
+        }
+        
+        int queries = 0;
+        
+        while(in.hasNext()){
+            String query = in.next();
+            // Write code here
+            if (phoneBook.containsKey(query)) {
+                long phoneNumber = phoneBook.get(query);
+                System.out.println(query + "=" + phoneNumber);
+            } else {
+                System.out.println("Not found");
+            }
+            queries++;
+            
+            // Salir del ciclo si se han realizado 3 consultas
+            if (queries == 3) {
+                break;
+            }
+        
+        }
+        in.close();
+    }
+}

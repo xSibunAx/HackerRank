@@ -1,0 +1,69 @@
+'use strict';
+
+// process.stdin.resume();
+// process.stdin.setEncoding('utf-8');
+
+// let inputString = '';
+// let currentLine = 0;
+
+// process.stdin.on('data', function(inputStdin) {
+//     inputString += inputStdin;
+// });
+
+// process.stdin.on('end', function() {
+//     inputString = inputString.split('\n');
+
+//     main();
+// });
+
+const fs = require('fs');
+
+const inputString = fs.readFileSync('./inputcode02.txt', 'utf8');
+const inputArray = inputString.trim().split('\n');
+let currentLine = 0;
+
+function readLine() {
+    return inputArray[currentLine++];
+}
+
+/*
+ * Complete the 'timeConversion' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts STRING s as parameter.
+ */
+
+function timeConversion(s) {
+    // Write your code here
+    let timeArray = s.slice(0, 8).split(':');
+    let hours = parseInt(timeArray[0]);
+    let ampm = s.slice(8, 10);
+
+    if (ampm === 'PM' && hours !== 12) {
+        hours += 12;
+    }
+
+    if (ampm === 'AM' && hours === 12) {
+        hours = 0;
+    }
+
+    timeArray[0] = hours.toString().padStart(2, '0');
+
+    return timeArray.join(':');
+
+}
+
+function main() {
+    //const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+    const ws = fs.createWriteStream('./outputcode02.txt');
+
+    const s = readLine();
+
+    const result = timeConversion(s);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
+
+main();

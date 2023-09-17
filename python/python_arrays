@@ -1,0 +1,16 @@
+#!/bin/python3
+
+
+
+def main():
+    
+    n = int(input().strip())
+    
+    arr = list(map(int, input().rstrip().split()))
+    
+    reverseOrder = arr[::-1] #slicing
+    
+    print(' '.join(map(str, reverseOrder)))
+
+if __name__ == '__main__':
+    main()

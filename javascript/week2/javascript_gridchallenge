@@ -1,0 +1,59 @@
+// Given a square grid of characters in the range ascii[a-z], rearrange elements of each row alphabetically, ascending. Determine if the columns are also in ascending alphabetical order, top to bottom. Return YES if they are or NO if they are not.
+
+'use strict';
+
+const fs = require('fs');
+const inputString = fs.readFileSync('./inputcode07.txt', 'utf8').split('\n');
+let currentLine = 0;
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+/*
+ * Complete the 'gridChallenge' function below.
+ *
+ * The function is expected to return a STRING.
+ * The function accepts STRING_ARRAY grid as parameter.
+ */
+
+function gridChallenge(grid) {
+    // Write your code here
+    const sortedGrid = grid.map(row => row.split('').sort().join(''));
+
+    for (let col = 0; col < sortedGrid[0].length; col++) {
+        for (let row = 1; row < sortedGrid.length; row++) {
+            if (sortedGrid[row][col] < sortedGrid[row - 1][col]) {
+                return 'NO';
+            }
+        }
+    }
+
+    return 'YES';
+
+}
+
+function main() {
+    const ws = fs.createWriteStream('./outputcode07.txt');
+
+    const t = parseInt(readLine().trim(), 10);
+
+    for (let tItr = 0; tItr < t; tItr++) {
+        const n = parseInt(readLine().trim(), 10);
+
+        let grid = [];
+
+        for (let i = 0; i < n; i++) {
+            const gridItem = readLine();
+            grid.push(gridItem);
+        }
+
+        const result = gridChallenge(grid);
+
+        ws.write(result + '\n');
+    }
+
+    ws.end();
+}
+
+main();

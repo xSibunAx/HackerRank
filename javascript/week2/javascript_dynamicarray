@@ -1,0 +1,91 @@
+// Declare a 2-dimensional array, arr, of n empty arrays. All arrays are zero indexed.
+// Declare an integer, lastAnswer, and initialize it to 0.
+
+// There are 2 types of queries, given as an array of strings for you to parse:
+// Query: 1 x y
+// Let idx = ((x XOR lastAnswer)%n).
+// Append the integer y to arr[idx].
+// Query: 2 x y
+// Let idx = ((x XOR lastAnswer) % n).
+// Assign the value arr[idx][y % size(arr[idx]) ]to lasAnswer.
+// Store the new value of lastAnswer to an answers array.
+
+// Complete the dynamicArray function below.
+
+// dynamicArray has the following parameters:
+// - int n: the number of empty arrays to initialize in arr
+// - string queries[q]: query strings that contain 3 space-separated integers
+
+// int[]: the results of each type 2 query in the order they are presented
+
+// The first line contains two space-separated integers, n, the size of arr to create, and q, the number of queries, respectively.
+// Each of the q subsequent lines contains a query string, queries[i].
+
+'use strict';
+
+const fs = require('fs');
+const inputString = fs.readFileSync('./inputcode06.txt', 'utf8').split('\n');
+let currentLine = 0;
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+/*
+ * Complete the 'dynamicArray' function below.
+ *
+ * The function is expected to return an INTEGER_ARRAY.
+ * The function accepts following parameters:
+ *  1. INTEGER n
+ *  2. 2D_INTEGER_ARRAY queries
+ */
+
+function dynamicArray(n, queries) {
+    // Write your code here
+    
+    let arr = Array(n).fill([]);
+    let lastAnswer = 0;
+    let answers = [];
+
+    for (let i = 0; i < queries.length; i++) {
+        const [queryType, x, y] = queries[i];
+        const idx = (x ^ lastAnswer) % n;
+
+        if (queryType === 1) {
+            arr[idx] = [...arr[idx], y];
+        } else if (queryType === 2) {
+            const subArr = arr[idx];
+            const subArrSize = subArr.length;
+            const subArrIdx = y % subArrSize;
+            lastAnswer = subArr[subArrIdx];
+            answers.push(lastAnswer);
+        }
+    }
+
+    return answers;
+
+}
+
+function main() {
+    const ws = fs.createWriteStream('./outputcode06.txt');
+
+    const firstMultipleInput = readLine().replace(/\s+$/g, '').split(' ');
+
+    const n = parseInt(firstMultipleInput[0], 10);
+
+    const q = parseInt(firstMultipleInput[1], 10);
+
+    let queries = Array(q);
+
+    for (let i = 0; i < q; i++) {
+        queries[i] = readLine().replace(/\s+$/g, '').split(' ').map(queriesTemp => parseInt(queriesTemp, 10));
+    }
+
+    const result = dynamicArray(n, queries);
+
+    ws.write(result.join('\n') + '\n');
+
+    ws.end();
+}
+
+main();

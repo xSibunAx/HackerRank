@@ -1,0 +1,56 @@
+'use strict';
+
+const fs = require('fs');
+const inputString = fs.readFileSync('inputcode06.txt', 'utf8').split('\n');
+let currentLine = 0;
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+/*
+ * Complete the 'diagonalDifference' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts 2D_INTEGER_ARRAY arr as parameter.
+ */
+
+function diagonalDifference(arr) {
+    // Write your code here
+    const n =arr.length;
+    
+    let sum1 = 0;
+    let sum2 = 0;
+    
+    for (let i = 0; i < n; i++) {
+        
+        sum1 += arr[i][i];
+        
+        sum2 += arr[i][n - i -1];
+    }
+    
+    return Math.abs(sum1 - sum2);
+}
+
+function main() {
+    //const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const ws = fs.createWriteStream('./outputcode06.txt');
+
+
+    const n = parseInt(readLine().trim(), 10);
+
+    let arr = Array(n);
+
+    for (let i = 0; i < n; i++) {
+        arr[i] = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+    }
+
+    const result = diagonalDifference(arr);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
+
+main();

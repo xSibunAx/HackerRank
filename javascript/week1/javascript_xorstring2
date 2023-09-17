@@ -1,0 +1,39 @@
+// In this challenge, the task is to debug the existing code to successfully execute all provided test files.
+
+// Given two strings consisting of digits 0 and 1 only, find the XOR of the two strings.
+
+// To know more about XOR Click Here
+
+// Debug the given function strings_xor to find the XOR of the two given strings appropriately.
+
+// Note: You can modify at most three lines in the given code and you cannot add or remove lines to the code.
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+let input = '';
+
+rl.on('line', (line) => {
+  input += line + '\n';
+});
+
+rl.on('close', () => {
+  const lines = input.trim().split('\n');
+  const s = lines[0];
+  const t = lines[1];
+
+  const result = strings_xor(s, t);
+  console.log(result);
+});
+
+function strings_xor(s, t) {
+  let result = '';
+  for (let i = 0; i < s.length; i++) {
+    result += s[i] === t[i] ? '0' : '1'; //
+  }
+  return result;
+}

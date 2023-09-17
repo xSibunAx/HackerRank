@@ -1,0 +1,71 @@
+const fs = require('fs');
+
+function Node(data) {
+    this.data = data;
+    this.next = null;
+}
+
+function Solution() {
+    this.insert = function (head, data) {
+        if (head === null) {
+            head = new Node(data);
+        } else {
+            let currentNode = head;
+            while (currentNode.next !== null) {
+                currentNode = currentNode.next;
+            }
+            currentNode.next = new Node(data);
+        }
+        return head;
+    };
+
+    this.display = function (head) {
+        let start = head;
+        while (start) {
+            process.stdout.write(start.data + ' ');
+            start = start.next;
+        }
+    };
+}
+
+function processData(input) {
+    const inputArray = input.split('\n');
+    const T = parseInt(inputArray[0], 10);
+    let head = null;
+    const mylist = new Solution();
+
+    for (let i = 0; i < T; i++) {
+        const data = parseInt(inputArray[i + 1], 10);
+        head = mylist.insert(head, data);
+    }
+
+    let output = '';
+    let start = head;
+    while (start) {
+        output += start.data + ' ';
+        start = start.next;
+    }
+
+    return output.trim();
+}
+
+const inputFile = 'inputcode15_1.txt';
+const outputFile = 'outputcode15_1.txt';
+
+fs.readFile(inputFile, 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    const input = data.trim();
+    const output = processData(input);
+
+    fs.writeFile(outputFile, output, 'utf8', (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('Output has been written to outputcode16.txt');
+    });
+});

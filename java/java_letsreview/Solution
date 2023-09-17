@@ -1,0 +1,39 @@
+import java.io.*;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException{
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        int T = Integer.parseInt(bufferedReader.readLine().trim());
+
+        for (int i = 0; i < T; i++) {
+            String S = bufferedReader.readLine().trim();
+            printEvenOddCharacters(S);
+        }
+
+        bufferedReader.close();
+    }
+    
+    public static void printEvenOddCharacters(String S){
+        StringBuilder evenChars = new StringBuilder();
+        StringBuilder oddChars = new StringBuilder();
+        
+        for (int i = 0; i < S.length(); i++) {
+            char c = S.charAt(i);
+            if (i % 2 == 0) {
+                evenChars.append(c);
+            } else {
+                oddChars.append(c);
+            }
+        }
+        
+        System.out.println(evenChars.toString() + " " + oddChars.toString());
+
+
+    }
+    
+}
+
+

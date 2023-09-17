@@ -1,0 +1,82 @@
+// You are given two classes, Person and Student, where Person is the base class and Student is the derived class. Completed code for Person and a declaration for Student are provided for you in the editor. Observe that Student inherits all the properties of Person.
+
+// Complete the Student class by writing the following:
+
+// A Student class constructor, which has  parameters:
+// A string, firstName.
+// A string, lastName.
+// An integer, idNumber.
+// An integer array (or vector) of test scores, scores.
+// A char calculate() method that calculates a Student object's average and returns the grade character representative of their calculated average:
+
+// grading scale:
+// o: 90<=a<=100
+// e:80<=a<90
+// a:70<=a<80
+// p:55<=a<70
+// d:40<=a<55
+// t: a<40
+
+// The locked stub code in the editor reads the input and calls the Student class constructor with the necessary arguments. It also calls the calculate method which takes no arguments.
+
+// The first line contains fristName, lastName, and idNumber, separated by a space. The second line contains the number of test scores. The third line of space-separated integers describes scores.
+
+const fs = require('fs');
+
+function processData(input) {
+    const inputLines = input.split('\n');
+    const [firstName, lastName, id] = inputLines[0].split(' ');
+    const numScores = parseInt(inputLines[1]);
+    const testScores = inputLines[2].split(' ').map(Number);
+
+    const s = new Student(firstName, lastName, id, testScores);
+    const output = `Name: ${s.lastName}, ${s.firstName}\nID: ${s.idNumber}\nGrade: ${s.calculate()}`;
+
+    fs.writeFileSync('outputcode12.txt', output);
+}
+
+class Person {
+    constructor(firstName, lastName, identification) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.idNumber = identification;
+    }
+
+    printPerson() {
+        console.log(
+            "Name: " + this.lastName + ", " + this.firstName
+            + "\nID: " + this.idNumber
+        );
+    }
+}
+
+class Student extends Person {
+    constructor(firstName, lastName, identification, scores) {
+        super(firstName, lastName, identification);
+        this.scores = scores;
+    }
+
+    calculate() {
+        const average = this.scores.reduce((sum, score) => sum + score, 0) / this.scores.length;
+        let grade;
+
+        if (average >= 90 && average <= 100) {
+            grade = 'O';
+        } else if (average >= 80 && average < 90) {
+            grade = 'E';
+        } else if (average >= 70 && average < 80) {
+            grade = 'A';
+        } else if (average >= 55 && average < 70) {
+            grade = 'P';
+        } else if (average >= 40 && average < 55) {
+            grade = 'D';
+        } else {
+            grade = 'T';
+        }
+
+        return grade;
+    }
+}
+
+const input = fs.readFileSync('inputcode12.txt', 'utf-8');
+processData(input);

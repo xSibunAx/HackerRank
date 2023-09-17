@@ -1,0 +1,35 @@
+// Given an integer n, find each x such that:
+// 0<=x<=n
+// n+n=n XOR x
+
+// Return the number of x's satisfying the 
+// criteria.
+
+
+'use strict';
+
+const fs = require('fs');
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+function sumXor(n) {
+    let count = 0;
+    while (n > 0) {
+        if (n % 2 === 0) {
+            count++;
+        }
+        n >>= 1;
+    }
+    return 2 ** count;
+}
+
+function main() {
+    const input = fs.readFileSync('inputcode012.txt', 'utf-8');
+    const n = parseInt(input.trim(), 10);
+    const result = sumXor(n);
+    fs.writeFileSync('outputcode012.txt', result.toString());
+}
+
+main();

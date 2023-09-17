@@ -1,0 +1,62 @@
+// Task
+// Given a Book class and a Solution class, write a MyBook class that does the following:
+
+// Inherits from Book
+// Has a parameterized constructor taking these  parameters:
+// string title
+// string author
+// int price
+// Implements the Book class' abstract display() method so it prints these 3 lines:
+// Title: , a space, and then the current instance's title.
+// Author: , a space, and then the current instance's author.
+// Price: , a space, and then the current instance's price.
+// Note: Because these classes are being written in the same file, you must not use an access modifier (e.g.: public ) when declaring MyBook or your code will not execute.
+// You are not responsible for reading any input from stdin. The Solution class creates a Book object and calls the MyBook class constructor (passing it the necessary arguments). It then calls the display method on the Book object.
+// The void display() method should print and label the respective title, author, and price of the MyBook object's instance (with each value on its own line)
+
+'use strict';
+
+const fs = require('fs');
+
+class Book {
+    constructor(title, author) {
+        if (this.constructor === Book) {
+            throw new TypeError('Do not attempt to directly instantiate an abstract class.'); 
+        }
+        else {
+            this.title = title;
+            this.author = author;
+        }
+    }
+    
+    display() {
+        console.log('Implement the \'display\' method!');
+    }
+}
+
+class MyBook extends Book {
+    constructor(title, author, price) {
+        super(title, author);
+        this.price = price;
+    }
+
+    display() {
+        console.log('Title: ' + this.title);
+        console.log('Author: ' + this.author);
+        console.log('Price: ' + this.price);
+    }
+}
+
+function main() {
+    const input = fs.readFileSync('inputcode13.txt', 'utf-8');
+    const inputLines = input.split('\n');
+    const title = inputLines[0];
+    const author = inputLines[1];
+    const price = parseInt(inputLines[2]);
+
+    const book = new MyBook(title, author, price);
+    const output = `Title: ${book.title}\nAuthor: ${book.author}\nPrice: ${book.price}`;
+    fs.writeFileSync('outputcode13.txt', output);
+}
+
+main();

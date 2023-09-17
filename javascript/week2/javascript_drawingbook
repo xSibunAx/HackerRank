@@ -1,0 +1,43 @@
+'use strict';
+
+const fs = require('fs');
+const inputString = fs.readFileSync('./inputcode02.txt', 'utf8').split('\n');
+let currentLine = 0;
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+/*
+ * Complete the 'pageCount' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER n
+ *  2. INTEGER p
+ */
+
+function pageCount(n, p) {
+    // Write your code here
+    const fromStart = Math.floor(p / 2);
+    const fromEnd = Math.floor(n / 2) - fromStart;
+    
+    return Math.min(fromStart, fromEnd);
+
+}
+
+function main() {
+    const ws = fs.createWriteStream('outputcode02.txt');
+
+    const n = parseInt(readLine().trim(), 10);
+
+    const p = parseInt(readLine().trim(), 10);
+
+    const result = pageCount(n, p);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
+
+main();

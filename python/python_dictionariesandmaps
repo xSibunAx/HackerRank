@@ -1,0 +1,30 @@
+
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+def process_data():
+    phone_book = {}
+    try:
+        n = int(input())
+    
+        for _ in range(n):
+            name, number = input().split()
+            phone_book[name] = number
+    
+        while True:
+            try:
+                query = input()
+                if query == "":
+                    break
+                if query in phone_book:
+                    print(f"{query}={phone_book[query]}")
+                else:
+                    print("Not found")
+                    
+            except EOFError:
+                break
+            
+    except EOFError:
+        pass
+                    
+if __name__ == '__main__':
+    process_data()

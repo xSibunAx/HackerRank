@@ -1,0 +1,48 @@
+package code2;
+
+import java.io.*;
+import java.math.*;
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+
+        double meal_cost = scanner.nextDouble();
+        // para ingresar en la terminal el double debe ser con coma, solo en la terminal
+        int tip_percent = scanner.nextInt();
+        int tax_percent = scanner.nextInt();
+
+        Result.solve(meal_cost, tip_percent, tax_percent);
+
+        scanner.close();
+    }
+}
+
+class Result {
+
+    /*
+     * Complete the 'solve' function below.
+     *
+     * The function accepts following parameters:
+     *  1. DOUBLE meal_cost
+     *  2. INTEGER tip_percent
+     *  3. INTEGER tax_percent
+     */
+
+    public static void solve(double meal_cost, int tip_percent, int tax_percent) {
+        // Write your code here
+        double total_1 = meal_cost * (tip_percent / 100.0);
+        double total_2 = meal_cost * (tax_percent / 100.0);
+    
+        double total_cost = total_1 + total_2 + meal_cost;
+    
+        BigDecimal bd = new BigDecimal(total_cost).setScale(0, RoundingMode.HALF_UP);
+    
+        int total_cost_rounded = bd.intValue();
+    
+        System.out.println(total_cost_rounded);
+    }
+}
+
+

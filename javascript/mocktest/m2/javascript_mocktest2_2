@@ -1,0 +1,44 @@
+const fs = require('fs');
+
+function getTotalX(a, b) {
+    let count = 0;
+
+    for (let num = 1; num <= 100; num++) {
+        if (a.every(factor => num % factor === 0) && b.every(element => element % num === 0)) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+function processData(input) {
+    const inputArray = input.split('\n');
+    const [n, m] = inputArray[0].split(' ').map(Number);
+    const a = inputArray[1].split(' ').map(Number);
+    const b = inputArray[2].split(' ').map(Number);
+
+    const result = getTotalX(a, b);
+    return result.toString();
+}
+
+const inputFile = 'inputcode2.txt';
+const outputFile = 'outputcode2.txt';
+
+fs.readFile(inputFile, 'utf8', (err, data) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    const input = data.trim();
+    const output = processData(input);
+
+    fs.writeFile(outputFile, output, 'utf8', (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log('Output has been written to outputcode2.txt');
+    });
+});
