@@ -1,0 +1,35 @@
+
+#include "share/atspre_staload.hats"
+
+// Definición de tipos y funciones auxiliares
+implement main0 () = {
+    // Definir una matriz 6x6 (puedes reemplazarla con tus valores)
+    val matrix: arrayptr(arrayptr(int)) = $UNSAFE.arrayptr0_of_list0{
+        [|[|1, 1, 1, 0, 0, 0|],
+          [|0, 1, 0, 0, 0, 0|],
+          [|1, 1, 1, 0, 0, 0|],
+          [|0, 0, 2, 4, 4, 0|],
+          [|0, 0, 0, 2, 0, 0|],
+          [|0, 0, 1, 2, 4, 0|]|]
+    }
+    
+    val numRows = 6
+    val numCols = 6
+    
+    var maxSum = -999999 // Valor mínimo posible
+    
+    // Recorrer la matriz para calcular la suma máxima del hourglass
+    for i in 0 to numRows - 3 do
+        for j in 0 to numCols - 3 do
+            val currentSum = matrix[i][j] + matrix[i][j+1] + matrix[i][j+2]
+                           + matrix[i+1][j+1]
+                           + matrix[i+2][j] + matrix[i+2][j+1] + matrix[i+2][j+2]
+            if currentSum > maxSum then
+                maxSum := currentSum
+            end
+        end
+    end
+    
+    // Imprimir la suma máxima del hourglass
+    println!("Maximum hourglass sum: ", maxSum)
+}
